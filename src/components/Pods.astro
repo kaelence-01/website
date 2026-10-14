@@ -1,0 +1,143 @@
+---
+import { pod, capabilities } from '../data/site';
+const inputs = capabilities.map((c) => ({ code: c.code, name: c.name }));
+---
+<section id="pods" class="section light" aria-labelledby="pods-title">
+  <div class="wrap">
+    <div class="intro">
+      <div>
+        <div class="eyebrow">{pod.code} — {pod.name}</div>
+        <h2 id="pods-title">{pod.headline}</h2>
+        <p class="body">{pod.body}</p>
+      </div>
+
+      <dl class="parts">
+        {pod.parts.map((p) => (
+          <div>
+            <dt class="code">{p.k}</dt>
+            <dd>{p.v}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+
+    <figure class="fig" aria-labelledby="fig-caption">
+      <div class="nodes">
+        {inputs.map((n) => (
+          <div class="node">
+            <span class="code">{n.code}</span>
+            <span class="label">{n.name}</span>
+          </div>
+        ))}
+      </div>
+      <div class="bus" aria-hidden="true"></div>
+      <div class="node hub">
+        <span class="code">{pod.code}</span>
+        <span class="label">Embedded engineering pods</span>
+      </div>
+      <div class="drop" aria-hidden="true"></div>
+      <div class="node out">
+        <span class="label">Long-term engineering partner</span>
+      </div>
+      <figcaption id="fig-caption">
+        <span>FIG. 02 — Engagement model</span>
+        <span>Systems, AI and Talent converge into embedded pods and long-term partnerships.</span>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<style>
+  .intro {
+    display: grid; grid-template-columns: 6fr 6fr; gap: 40px 72px;
+    align-items: start;
+  }
+  h2 {
+    margin-top: 14px;
+    font-weight: 600;
+    font-size: clamp(30px, 4vw, 48px);
+    line-height: 1.08; letter-spacing: -.025em;
+    text-wrap: balance;
+  }
+  .body { margin-top: 20px; font-size: 16.5px; line-height: 1.7; color: var(--ink); max-width: 520px; }
+
+  .parts { margin: 0; border-top: 1px solid var(--line-paper); }
+  .parts div {
+    display: grid; grid-template-columns: 110px 1fr; gap: 16px;
+    padding: 16px 0; border-bottom: 1px solid var(--line-paper);
+  }
+  .parts dt { color: var(--amber-ink); padding-top: 3px; }
+  .parts dd { margin: 0; font-size: 15px; line-height: 1.55; }
+
+  /* ---------- FIG. 02 ---------- */
+  .fig {
+    --gap: 24px;
+    --stem: 32px;
+    margin: clamp(56px, 8vw, 88px) 0 0;
+    padding: clamp(24px, 4vw, 48px);
+    border: 1px solid var(--line-paper);
+    background: var(--paper-2);
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .nodes {
+    width: 100%;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap);
+  }
+  .node {
+    position: relative;
+    display: flex; flex-direction: column; gap: 6px;
+    padding: 16px 18px;
+    background: var(--paper);
+    border: 1px solid var(--line-paper);
+  }
+  .label {
+    font-family: var(--mono); font-weight: 600;
+    font-size: 12.5px; letter-spacing: .06em; text-transform: uppercase;
+  }
+  .nodes .node::after {
+    content: ''; position: absolute; left: 50%; top: 100%;
+    width: 1px; height: calc(var(--stem) / 2); background: var(--ink-dim);
+  }
+  .bus { position: relative; width: 100%; height: var(--stem); }
+  .bus::before {
+    content: ''; position: absolute; top: calc(var(--stem) / 2);
+    left: calc((100% - 2 * var(--gap)) / 6);
+    right: calc((100% - 2 * var(--gap)) / 6);
+    height: 1px; background: var(--ink-dim);
+  }
+  .bus::after, .drop {
+    content: ''; display: block;
+    width: 1px; height: calc(var(--stem) / 2); background: var(--ink-dim);
+  }
+  .bus::after { position: absolute; left: 50%; top: calc(var(--stem) / 2); }
+  .drop { height: var(--stem); }
+
+  .hub {
+    width: min(100%, 380px);
+    border-color: var(--amber-ink);
+    background: var(--graphite); color: var(--white);
+    padding: 20px 22px;
+  }
+  .hub .code { color: var(--amber); }
+  .hub .label { color: var(--amber); font-size: 13.5px; }
+  .out { width: min(100%, 300px); align-items: center; text-align: center; }
+
+  figcaption {
+    width: 100%;
+    margin-top: 28px; padding-top: 14px;
+    border-top: 1px solid var(--line-paper);
+    display: flex; justify-content: space-between; gap: 8px 24px; flex-wrap: wrap;
+    font-family: var(--mono); font-size: 11px; letter-spacing: .04em; color: var(--ink-dim);
+  }
+
+  @media (max-width: 860px) {
+    .intro { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    .nodes { grid-template-columns: 1fr; gap: 10px; }
+    .nodes .node::after { display: none; }
+    .bus::before { display: none; }
+    .bus::after { top: 0; height: var(--stem); }
+    .parts div { grid-template-columns: 1fr; gap: 4px; }
+  }
+</style>

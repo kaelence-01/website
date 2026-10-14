@@ -1,0 +1,31 @@
+---
+import { site } from '../data/site';
+---
+<section id="contact" class="section light contact" aria-labelledby="contact-title">
+  <div class="wrap inner">
+    <div>
+      <div class="eyebrow">Contact</div>
+      <h2 id="contact-title">Let's solve the hard problem.</h2>
+      <p>Tell us what's breaking, what's slow, or who you're struggling to hire.</p>
+    </div>
+    <div class="actions">
+      <a class="btn btn-primary" href={`mailto:${site.email}`}>{site.email} →</a>
+      <span class="code">Systems · AI · Talent · Pods</span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .inner {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    gap: 36px 48px; flex-wrap: wrap;
+  }
+  h2 {
+    margin-top: 14px;
+    font-weight: 600; font-size: clamp(32px, 4.6vw, 56px);
+    line-height: 1.05; letter-spacing: -.03em;
+  }
+  p { margin-top: 16px; font-size: 17px; color: var(--ink-dim); max-width: 480px; }
+  .actions { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
+  .actions .btn { font-size: 13.5px; padding: 16px 24px; text-transform: none; letter-spacing: .02em; }
+</style>

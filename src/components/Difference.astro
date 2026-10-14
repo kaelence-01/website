@@ -1,0 +1,64 @@
+---
+import { contrasts } from '../data/site';
+---
+<section class="section dark diff" aria-labelledby="diff-title">
+  <div class="wrap">
+    <div class="eyebrow">Differentiation</div>
+    <h2 id="diff-title">Engineers recognize <em>engineers.</em></h2>
+    <p class="lede">
+      Every system, every AI initiative and every hire is evaluated the way an engineer would evaluate
+      it — by the code, the architecture and the decisions behind them. Technical depth and engineering
+      judgment are the product.
+    </p>
+
+    <ul class="rows">
+      {contrasts.map((c) => (
+        <li>
+          <span class="not"><span class="visually-hidden">Not: </span>{c.not}</span>
+          <span class="is">{c.is}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .diff { text-align: center; }
+  .eyebrow { justify-content: center; }
+  .eyebrow::before { display: none; }
+  h2 {
+    margin: 22px auto 0; max-width: 900px;
+    font-family: var(--mono); font-weight: 600;
+    font-size: clamp(32px, 5.4vw, 64px);
+    line-height: 1.06; letter-spacing: -.02em;
+  }
+  h2 em { font-style: normal; color: var(--amber); }
+  .lede { margin: 24px auto 0; max-width: 600px; color: var(--soft); font-size: 16px; line-height: 1.7; }
+
+  .rows {
+    margin: clamp(48px, 7vw, 72px) auto 0;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--line);
+    text-align: left;
+  }
+  .rows li {
+    display: flex; flex-direction: column; gap: 8px;
+    padding: 20px 20px 4px 0;
+  }
+  .rows li + li { border-left: 1px solid var(--line-soft); padding-left: 20px; }
+  .not {
+    font-family: var(--mono); font-size: 12px; color: var(--mute);
+    text-decoration: line-through; text-decoration-color: var(--line);
+  }
+  .is { font-size: 15.5px; font-weight: 500; color: var(--white); line-height: 1.4; }
+
+  @media (max-width: 860px) {
+    .rows { grid-template-columns: repeat(2, 1fr); }
+    .rows li:nth-child(3) { border-left: 0; padding-left: 0; }
+    .rows li { padding-bottom: 20px; }
+  }
+  @media (max-width: 520px) {
+    .rows { grid-template-columns: 1fr; }
+    .rows li + li { border-left: 0; padding-left: 0; border-top: 1px solid var(--line-soft); }
+  }
+</style>

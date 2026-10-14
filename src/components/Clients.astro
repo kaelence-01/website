@@ -1,0 +1,47 @@
+---
+import { clients } from '../data/site';
+---
+<section id="clients" class="section light" aria-labelledby="clients-title">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">Who we work with</div>
+        <h2 id="clients-title">Built for technology companies where the system is the business.</h2>
+      </div>
+      <div class="code">SPEC — Partner profile</div>
+    </div>
+
+    <dl class="spec">
+      {clients.map((c) => (
+        <div>
+          <dt class="code">{c.k}</dt>
+          <dd>
+            <strong>{c.v}</strong>
+            <span>{c.note}</span>
+          </dd>
+        </div>
+      ))}
+    </dl>
+  </div>
+</section>
+
+<style>
+  .spec {
+    margin: 0;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--line-paper);
+    border-left: 1px solid var(--line-paper);
+  }
+  .spec div {
+    padding: 24px 22px 26px;
+    border-right: 1px solid var(--line-paper);
+    border-bottom: 1px solid var(--line-paper);
+  }
+  dt { color: var(--amber-ink); margin-bottom: 12px; }
+  dd { margin: 0; display: flex; flex-direction: column; gap: 6px; }
+  strong { font-size: 17px; font-weight: 600; line-height: 1.35; }
+  dd span { font-size: 14px; color: var(--ink-dim); line-height: 1.55; }
+
+  @media (max-width: 900px) { .spec { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) { .spec { grid-template-columns: 1fr; } }
+</style>

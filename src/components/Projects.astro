@@ -1,0 +1,95 @@
+---
+import { projects, capabilities, pod } from '../data/site';
+const capCode = Object.fromEntries([
+  ...capabilities.map((c) => [c.short, c.code]),
+  ['POD', pod.code],
+]);
+const live = projects.filter((p) => p.status === 'live').length;
+---
+<section id="projects" class="section dark" aria-labelledby="projects-title">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">Projects</div>
+        <h2 id="projects-title">Selected work.</h2>
+      </div>
+      <div class="code">REG. PRJ — {live}/{projects.length} live</div>
+    </div>
+
+    <ol class="registry">
+      {projects.map((p) => {
+        const pending = p.status !== 'live';
+        const tags = [...p.capabilities.map((c) => capCode[c]), ...p.stack];
+        return (
+          <li class:list={['row', { pending }]}>
+            <div class="meta">
+              <span class="code">{p.code}</span>
+              <span class:list={['status', p.status]}>
+                <span class="dot" aria-hidden="true"></span>
+                {pending ? 'Deploying soon' : 'Live'}
+              </span>
+            </div>
+
+            <div class="main">
+              <h3>{p.name}</h3>
+              <p>{p.summary}</p>
+              {tags.length > 0 && (
+                <div class="tags">{tags.map((t) => <span class="tag">{t}</span>)}</div>
+              )}
+            </div>
+
+            <div class="actions">
+              {p.url && !pending && (
+                <a class="btn btn-ghost" href={p.url} target="_blank" rel="noopener">View project ↗</a>
+              )}
+              {p.repo && (
+                <a class="link" href={p.repo} target="_blank" rel="noopener">Source ↗</a>
+              )}
+              {pending && <span class="code">Link available at launch</span>}
+            </div>
+          </li>
+        );
+      })}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .registry { border-top: 1px solid var(--line); }
+  .row {
+    display: grid; grid-template-columns: 200px 1fr auto; gap: 20px 40px;
+    align-items: start;
+    padding: 32px 0;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .row.pending .main { border-left: 1px dashed var(--line); padding-left: 24px; }
+
+  .meta { display: flex; flex-direction: column; gap: 12px; }
+  .meta .code { color: var(--amber); }
+  .status {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--soft);
+  }
+  .dot { width: 7px; height: 7px; background: var(--cyan); }
+  .status.pending .dot { background: var(--amber); animation: blink 1.6s steps(2, start) infinite; }
+  @keyframes blink { to { opacity: .25; } }
+
+  h3 { font-size: 22px; font-weight: 600; letter-spacing: -.01em; }
+  .pending h3 { color: var(--soft); }
+  .main p { margin-top: 10px; max-width: 560px; color: var(--soft); line-height: 1.65; }
+  .tags { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 6px; }
+
+  .actions { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; padding-top: 2px; }
+  .link {
+    font-family: var(--mono); font-size: 12px; letter-spacing: .06em;
+    color: var(--mute); text-decoration: none;
+  }
+  .link:hover { color: var(--amber); }
+
+  @media (max-width: 860px) {
+    .row { grid-template-columns: 1fr; }
+    .meta { flex-direction: row; justify-content: space-between; }
+    .actions { align-items: flex-start; }
+  }
+</style>

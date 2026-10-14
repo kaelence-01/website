@@ -1,0 +1,42 @@
+---
+import Logo from './Logo.astro';
+import { site, capabilities, pod } from '../data/site';
+---
+<footer class="footer dark">
+  <div class="wrap">
+    <div class="top">
+      <div class="brand">
+        <Logo size={28} />
+        <p>{site.positioning}</p>
+        <a class="mail" href={`mailto:${site.email}`}>{site.email}</a>
+      </div>
+      <nav aria-label="Footer">
+        <ul>
+          {capabilities.map((c) => <li><a href={`/#${c.id}`}><span>{c.code}</span>{c.name}</a></li>)}
+          <li><a href="/#pods"><span>{pod.code}</span>{pod.name}</a></li>
+          <li><a href="/#projects"><span>PRJ</span>Projects</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="bottom">
+      <span>© {site.year} Kaelence</span>
+      <span>{site.statement.join(' ')}</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer { padding: 64px 0 32px; border-top: 1px solid var(--line-soft); }
+  .top { display: flex; justify-content: space-between; gap: 40px; flex-wrap: wrap; padding-bottom: 48px; }
+  .brand p { margin-top: 16px; font-family: var(--mono); font-size: 12px; color: var(--mute); letter-spacing: .04em; }
+  ul { display: grid; gap: 10px; }
+  a { text-decoration: none; font-size: 14px; color: var(--soft); display: flex; gap: 14px; }
+  a:hover { color: var(--amber); }
+  a span { font-family: var(--mono); font-size: 11px; color: var(--mute); width: 64px; padding-top: 2px; }
+  .brand .mail { margin-top: 10px; font-family: var(--mono); font-size: 12px; color: var(--soft); }
+  .bottom {
+    display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+    padding-top: 22px; border-top: 1px solid var(--line-soft);
+    font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--mute);
+  }
+</style>

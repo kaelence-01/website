@@ -1,0 +1,167 @@
+/* Kaelence — base tokens and global styles.
+   Palette from company/KAELENCE_BRAND_AND_COMPANY.md §13.
+   --mute and --amber-ink are accessibility derivatives (WCAG AA for small text). */
+
+:root {
+  --graphite: #15181b;
+  --graphite-2: #1d2226;
+  --paper: #edede6;
+  --paper-2: #e3e3da;
+  --ink: #1b1e21;
+  --ink-dim: #5b5f58;
+  --line: #3a3f44;
+  --line-soft: #2a2e32;
+  --line-paper: #c9c9be;
+  --amber: #e3a73a;
+  --amber-dim: #8a6a2c;
+  --cyan: #7faeb3;
+  --white: #f4f4ef;
+
+  --mute: #8e938c;      /* secondary text on graphite (~5.6:1) */
+  --soft: #c7c9c2;      /* body text on graphite */
+  --amber-ink: #7a5a1f; /* amber text on paper (~5:1) */
+
+  --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --sans: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --wrap: 1180px;
+  --gutter: 32px;
+  --nav-h: 64px;
+}
+
+@media (max-width: 720px) {
+  :root { --gutter: 16px; }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--nav-h);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--graphite);
+  color: var(--white);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; }
+h1, h2, h3, p { margin: 0; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+
+::selection { background: var(--amber); color: var(--graphite); }
+:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+
+.wrap {
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  overflow: hidden; clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.skip {
+  position: absolute; left: 12px; top: -48px; z-index: 100;
+  background: var(--amber); color: var(--graphite);
+  font-family: var(--mono); font-size: 12px; padding: 10px 14px;
+  text-decoration: none;
+}
+.skip:focus { top: 12px; }
+
+/* ---------- Section surfaces ---------- */
+.dark  { background: var(--graphite); color: var(--white); }
+.light { background: var(--paper); color: var(--ink); }
+
+.section { padding: clamp(72px, 10vw, 112px) 0; }
+.dark + .dark { border-top: 1px solid var(--line-soft); }
+
+/* ---------- Typographic primitives ---------- */
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--amber);
+  display: flex; align-items: center; gap: 10px;
+}
+.eyebrow::before {
+  content: ''; width: 14px; height: 1px;
+  background: currentColor; flex: none;
+}
+.light .eyebrow { color: var(--amber-ink); }
+
+.code {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+.light .code { color: var(--ink-dim); }
+
+.sec-head {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: 16px 32px; flex-wrap: wrap;
+  margin-bottom: clamp(36px, 5vw, 56px);
+}
+.sec-head h2 {
+  font-weight: 600;
+  font-size: clamp(26px, 3.4vw, 40px);
+  line-height: 1.15;
+  letter-spacing: -.015em;
+  margin-top: 14px;
+  max-width: 720px;
+  text-wrap: balance;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 14px 22px;
+  border: 1px solid var(--line);
+  color: inherit;
+  display: inline-flex; align-items: center; gap: 10px;
+  transition: border-color .15s, background-color .15s, color .15s;
+}
+.btn-primary {
+  background: var(--amber); border-color: var(--amber);
+  color: var(--graphite); font-weight: 600;
+}
+.btn-primary:hover { background: #f0b750; border-color: #f0b750; }
+.btn-ghost:hover { border-color: var(--amber); color: var(--amber); }
+.light .btn-ghost { border-color: var(--line-paper); }
+.light .btn-ghost:hover { border-color: var(--ink); color: var(--ink); }
+
+/* ---------- Spec tag ---------- */
+.tag {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .04em;
+  padding: 5px 9px;
+  border: 1px solid var(--line);
+  color: var(--soft);
+  white-space: nowrap;
+}
+.light .tag { border-color: var(--line-paper); color: var(--ink-dim); background: var(--paper-2); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}

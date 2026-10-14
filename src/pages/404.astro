@@ -1,0 +1,21 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+---
+<Base title="Not found">
+  <Nav />
+  <main id="main" class="section dark nf">
+    <div class="wrap">
+      <div class="eyebrow">ERR · 404</div>
+      <h1>This path isn't part of the system.</h1>
+      <a class="btn btn-ghost" href="/">← Back to kaelence</a>
+    </div>
+  </main>
+  <Footer />
+</Base>
+
+<style>
+  .nf { min-height: 60vh; }
+  h1 { margin: 20px 0 36px; font-size: clamp(32px, 5vw, 56px); font-weight: 600; letter-spacing: -.025em; line-height: 1.08; }
+</style>

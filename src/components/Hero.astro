@@ -1,0 +1,111 @@
+---
+import { site, capabilities } from '../data/site';
+const lines = site.statement.map((line, i) => ({ line, cap: capabilities[i] }));
+---
+<section class="hero dark" aria-labelledby="hero-title">
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="corner tl" aria-hidden="true"></div>
+  <div class="corner tr" aria-hidden="true"></div>
+
+  <div class="wrap hero-inner">
+    <div class="eyebrow">K/01 — Kaelence / Engineering</div>
+
+    <h1 id="hero-title">Engineering for complex <em>technical systems.</em></h1>
+
+    <p class="sub">
+      We help technology companies design, build and scale the systems that matter — backend
+      platforms, AI in real operations, and the engineering teams behind them.
+    </p>
+
+    <div class="cta">
+      <a class="btn btn-primary" href="#contact">Start a conversation →</a>
+      <a class="btn btn-ghost" href="#problems">What we solve</a>
+    </div>
+
+    <ol class="statement" aria-label="What Kaelence does">
+      {lines.map(({ line, cap }) => (
+        <li>
+          <a href={`#${cap.id}`}>
+            <span class="code">{cap.code}</span>
+            <span class="line">{line}</span>
+            <span class="name">{cap.name}</span>
+            <span class="arrow" aria-hidden="true">↘</span>
+          </a>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    padding: clamp(80px, 12vw, 136px) 0 clamp(56px, 8vw, 88px);
+    overflow: hidden;
+  }
+  .grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(var(--line-soft) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line-soft) 1px, transparent 1px);
+    background-size: 64px 64px;
+    background-position: -1px -1px;
+    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 70% 25%, #000, transparent 75%);
+            mask-image: radial-gradient(ellipse 70% 60% at 70% 25%, #000, transparent 75%);
+    opacity: .6;
+  }
+  .corner { position: absolute; top: 24px; width: 20px; height: 20px; border: 0 solid var(--line); }
+  .corner.tl { left: 24px; border-top-width: 1px; border-left-width: 1px; }
+  .corner.tr { right: 24px; border-top-width: 1px; border-right-width: 1px; }
+  @media (max-width: 720px) { .corner { display: none; } }
+
+  .hero-inner { position: relative; }
+  .eyebrow { margin-bottom: 28px; }
+
+  h1 {
+    font-weight: 600;
+    font-size: clamp(40px, 7vw, 84px);
+    line-height: 1.02;
+    letter-spacing: -.03em;
+    max-width: 980px;
+    text-wrap: balance;
+  }
+  h1 em { font-style: normal; color: var(--mute); }
+
+  .sub {
+    margin-top: 28px;
+    max-width: 560px;
+    font-size: clamp(16px, 1.6vw, 18px);
+    line-height: 1.65;
+    color: var(--soft);
+  }
+  .cta { margin-top: 40px; display: flex; gap: 14px; flex-wrap: wrap; }
+
+  .statement {
+    margin-top: clamp(56px, 8vw, 88px);
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--line);
+  }
+  .statement li + li { border-left: 1px solid var(--line-soft); }
+  .statement a {
+    position: relative;
+    display: flex; flex-direction: column; gap: 6px;
+    padding: 20px 24px 22px 0;
+    text-decoration: none;
+  }
+  .statement li + li a { padding-left: 24px; }
+  .line { font-size: 17px; font-weight: 500; color: var(--white); }
+  .name { font-family: var(--mono); font-size: 11.5px; color: var(--mute); }
+  .arrow {
+    position: absolute; right: 20px; top: 18px;
+    color: var(--mute); transition: color .15s, transform .15s;
+  }
+  .statement a:hover .arrow { color: var(--amber); transform: translate(2px, 2px); }
+  .statement a:hover .line { color: var(--amber); }
+
+  @media (max-width: 760px) {
+    .statement { grid-template-columns: 1fr; }
+    .statement li + li { border-left: 0; border-top: 1px solid var(--line-soft); }
+    .statement li + li a { padding-left: 0; }
+  }
+</style>

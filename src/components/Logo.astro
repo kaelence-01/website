@@ -1,0 +1,15 @@
+---
+// Horizontal primary lockup: geometric K + wordmark.
+import Mark from './Mark.astro';
+import Wordmark from './Wordmark.astro';
+interface Props { size?: number; class?: string }
+const { size = 26, class: className } = Astro.props;
+---
+<span class:list={['logo', className]} style={`--s:${size}px`}>
+  <Mark size={size} />
+  <Wordmark size={Math.round(size * 0.42)} />
+</span>
+
+<style>
+  .logo { display: inline-flex; align-items: center; gap: calc(var(--s) * .55); }
+</style>

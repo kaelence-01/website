@@ -1,0 +1,56 @@
+---
+import { problems, capabilities, pod } from '../data/site';
+const routes = Object.fromEntries([
+  ...capabilities.map((c) => [c.short, { code: c.code, href: `#${c.id}` }]),
+  ['POD', { code: pod.code, href: '#pods' }],
+]);
+---
+<section id="problems" class="section light" aria-labelledby="problems-title">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">Problems first</div>
+        <h2 id="problems-title">Companies don't come to us for a technology. They come with a problem.</h2>
+      </div>
+      <div class="code">FIG. 01 — Entry points</div>
+    </div>
+
+    <ol class="grid">
+      {problems.map((p, i) => (
+        <li>
+          <span class="code">{String(i + 1).padStart(2, '0')}</span>
+          <p>“{p.text}”</p>
+          <a class="route" href={routes[p.route].href}>→ {routes[p.route].code}</a>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--line-paper);
+    border-left: 1px solid var(--line-paper);
+  }
+  li {
+    display: flex; flex-direction: column; gap: 14px;
+    padding: 24px 22px 22px;
+    min-height: 200px;
+    border-right: 1px solid var(--line-paper);
+    border-bottom: 1px solid var(--line-paper);
+  }
+  p { font-size: 16px; line-height: 1.45; font-weight: 500; color: var(--ink); }
+  .route {
+    margin-top: auto;
+    font-family: var(--mono); font-size: 11px; letter-spacing: .08em;
+    color: var(--amber-ink); text-decoration: none;
+  }
+  .route:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+  @media (max-width: 960px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) {
+    .grid { grid-template-columns: 1fr; }
+    li { min-height: 0; }
+  }
+</style>

@@ -1,0 +1,119 @@
+---
+import { capabilities } from '../data/site';
+---
+<section class="section dark" aria-labelledby="cap-title">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">Capabilities</div>
+        <h2 id="cap-title">Three capabilities. One engineering practice.</h2>
+      </div>
+      <div class="code">CAP. SYS-01 / AI-01 / TAL-01</div>
+    </div>
+
+    {capabilities.map((c) => (
+      <article id={c.id} class="cap" aria-labelledby={`${c.id}-name`}>
+        <div class="cap-main">
+          <div class="cap-code">
+            <span>{c.code}</span>
+            <span class="rule" aria-hidden="true"></span>
+          </div>
+          <h3 id={`${c.id}-name`}>{c.name}</h3>
+          <p class="headline">{c.headline}</p>
+          <p class="body">{c.body}</p>
+        </div>
+
+        <div class="cap-spec">
+          <div class="block">
+            <div class="code">{c.areasLabel}</div>
+            <ul class="areas">
+              {c.areas.map((a) => <li>{a}</li>)}
+            </ul>
+          </div>
+
+          <div class="block">
+            <div class="code">{c.methodLabel}</div>
+            <ol class="method">
+              {c.method.map((m, i) => (
+                <li><span>{String(i + 1).padStart(2, '0')}</span>{m}</li>
+              ))}
+            </ol>
+          </div>
+
+          {c.tools.length > 0 && (
+            <div class="block">
+              <div class="code">Tools, not limits</div>
+              <div class="tools">
+                {c.tools.map((t) => <span class="tag">{t}</span>)}
+              </div>
+            </div>
+          )}
+        </div>
+      </article>
+    ))}
+  </div>
+</section>
+
+<style>
+  .cap {
+    display: grid; grid-template-columns: 5fr 7fr; gap: 32px 64px;
+    padding: 48px 0 56px;
+    border-top: 1px solid var(--line);
+  }
+  .cap:last-child { padding-bottom: 0; }
+
+  .cap-code {
+    display: flex; align-items: center; gap: 14px;
+    font-family: var(--mono); font-size: 12px; letter-spacing: .12em;
+    color: var(--amber);
+  }
+  .rule { flex: 1; height: 1px; background: var(--line-soft); max-width: 120px; }
+
+  h3 {
+    margin-top: 18px;
+    font-family: var(--mono); font-weight: 500;
+    font-size: 13px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--mute);
+  }
+  .headline {
+    margin-top: 10px;
+    font-size: clamp(26px, 3vw, 36px);
+    font-weight: 600; line-height: 1.12; letter-spacing: -.02em;
+    text-wrap: balance;
+  }
+  .body { margin-top: 18px; font-size: 16px; line-height: 1.7; color: var(--soft); max-width: 460px; }
+
+  .cap-spec {
+    display: grid; gap: 28px;
+    border-left: 1px solid var(--line-soft);
+    padding-left: 40px;
+  }
+  .block .code { margin-bottom: 12px; }
+
+  .areas {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    column-gap: 24px;
+  }
+  .areas li {
+    font-size: 14.5px; color: var(--white);
+    padding: 8px 0; border-bottom: 1px dashed var(--line-soft);
+  }
+
+  .method { display: flex; flex-wrap: wrap; gap: 8px; }
+  .method li {
+    display: inline-flex; align-items: baseline; gap: 8px;
+    font-size: 13.5px; color: var(--soft);
+    padding: 6px 10px; border: 1px solid var(--line-soft);
+  }
+  .method span { font-family: var(--mono); font-size: 10.5px; color: var(--cyan); }
+
+  .tools { display: flex; flex-wrap: wrap; gap: 6px; }
+
+  @media (max-width: 900px) {
+    .cap { grid-template-columns: 1fr; }
+    .cap-spec { border-left: 0; padding-left: 0; }
+  }
+  @media (max-width: 480px) {
+    .areas { grid-template-columns: 1fr; }
+  }
+</style>

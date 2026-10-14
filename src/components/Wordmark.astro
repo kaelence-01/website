@@ -1,0 +1,26 @@
+---
+// KΛELENCE. wordmark (logo 01), constructed geometry on a 100-unit cap height, 15-unit stroke.
+interface Props { size?: number; class?: string }
+const { size = 14, class: className } = Astro.props;
+const W = 1036;
+---
+<svg
+  class:list={['wordmark', className]}
+  viewBox={`0 0 ${W} 100`}
+  height={size}
+  width={(size * W) / 100}
+  role="img"
+  aria-label="Kaelence"
+>
+  <g fill="currentColor">
+    <path d="M0 0H15V100H0Z M15 41L88 0H113L36 50L113 100H88L15 59Z" />
+    <path d="M133 100L178 0H196L241 100H224L187 17L150 100Z" />
+    <path d="M273 0H359V15H288V42.5H353V57.5H288V85H359V100H273Z" />
+    <path d="M394 0H409V85H479V100H394Z" />
+    <path d="M508 0H594V15H523V42.5H588V57.5H523V85H594V100H508Z" />
+    <path d="M631 0H648L716 74V0H731V100H714L646 26V100H631Z" />
+    <path d="M864 0H792A26 26 0 0 0 766 26V74A26 26 0 0 0 792 100H864V85H792A11 11 0 0 1 781 74V26A11 11 0 0 1 792 15H864Z" />
+    <path d="M899 0H985V15H914V42.5H979V57.5H914V85H985V100H899Z" />
+  </g>
+  <rect x="1012" y="76" width="24" height="24" fill="var(--amber)" />
+</svg>
